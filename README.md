@@ -1,3 +1,2 @@
 # React Spotify API Project
-
-### By Cierra
+readme details coming soon, project available for [demo here](backtrack.surge.sh)
