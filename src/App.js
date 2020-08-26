@@ -4,7 +4,9 @@ import { authEndpoint, clientId, redirectUri, scopes } from "./config";
 import hash from "./hash";
 import Content from "./components/content/Content";
 import logo from "./assets/logo.png";
-import backtrack from "./assets/backtrack.png";
+import tracks from "./assets/TRACKLIST.png"
+import name from "./assets/name.png";
+import connect from "./assets/connect.png"
 import "./App.scss";
 
 class App extends Component {
@@ -77,27 +79,25 @@ class App extends Component {
     return (
       <div className="App">
         <div className="about">
-          <img src={backtrack} className="b" alt="b" />
-          <h1 className="App-title"> acktrack </h1>
+          <img src={name} className="b" alt="backtrack" />
         </div>
         <header className="App-header">
           {!this.state.token && (
             <div className="login">
-              <a
+              <img
               className="btn btn--loginApp-link"
               href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
                 "%20"
               )}&response_type=token&show_dialog=true`}
-            >
-              connect to Spotify
-            </a>
+              src={connect}
+            />
             <div className="about"> 
               <img src={logo} className="App-logo" alt="logo" />
-              <h1 className="description"> backtrack analyzes your most listened to songs over
-              the past month to generate your originality score - we also show you your most
-              listened to tracks</h1>
+              <img src={tracks} className="App-logo" alt="logo" />
             </div>
-            <h3 className="footer"> a project by Cierra</h3>
+            <h3 className="footer"> a project by
+              <a href="http://cierrabeck.com/" target="_blank" >Cierra</a>
+            </h3>
             </div>
 
           )}
