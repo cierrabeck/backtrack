@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import * as $ from "jquery";
 import { authEndpoint, clientId, redirectUri, scopes } from "./config";
 import hash from "./hash";
-import Player from "./assets/components/player/Player";
+import Content from "./components/content/Content";
 import logo from "./assets/logo.png";
+import backtrack from "./assets/backtrack.png";
 import "./App.scss";
 
 class App extends Component {
@@ -11,19 +12,10 @@ class App extends Component {
     super();
     this.state = {
       token: null,
-      item: {
-        album: {
-          images: [{ url: "" }]
-        },
-        name: "",
-        artists: [{ name: "" }],
-        duration_ms: 0
-      },
-      is_playing: "Paused",
-      progress_ms: 0,
-      no_data: false,
+      items: [],
+      no_data: true,
     };
-
+    this.data = [];
     this.getCurrentlyPlaying = this.getCurrentlyPlaying.bind(this);
     this.tick = this.tick.bind(this);
   }
@@ -42,12 +34,11 @@ class App extends Component {
       this.getCurrentlyPlaying(_token);
     }
 
-    // set interval for polling every 5 seconds
-    this.interval = setInterval(() => this.tick(), 5000);
+    // set interval for polling every 10 seconds
+    this.interval = setInterval(() => this.tick(), 10000);
   }
 
   componentWillUnmount() {
-    // clear the interval to save resources
     clearInterval(this.interval);
   }
 
@@ -59,31 +50,25 @@ class App extends Component {
 
 
   getCurrentlyPlaying(token) {
-    // Make a call using the token
     $.ajax({
       url: "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50&offset=0",
-      // url: "https://api.spotify.com/v1/me/player/recently-played?type=track&limit=20",
       type: "GET",
       beforeSend: xhr => {
         xhr.setRequestHeader("Authorization", "Bearer " + token);
       },
       success: data => {
         // Checks if the data is not empty
-        console.log(data);
         if(!data) {
           this.setState({
             no_data: true,
           });
           return;
         }
-
         this.setState({
-          item: data.item,
-          is_playing: data.is_playing,
-          progress_ms: data.progress_ms,
-          no_data: false /* We need to "reset" the boolean, in case the
-                            user does not give F5 and has opened his Spotify. */
+          items: data.items,
+          no_data: false
         });
+        this.data=data.items
       }
     });
   }
@@ -91,24 +76,14 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1 className="App-title"> backtrack </h1>
+        <div className="about">
+          <img src={backtrack} className="b" alt="b" />
+          <h1 className="App-title"> acktrack </h1>
+        </div>
         <header className="App-header">
-          {/* <div class="music">
-            <div class="player"> 
-            </div>
-            <div class="disk"> 
-            <div class="rings">
-              <div class="ring1"> </div>
-              <div class="ring2"> </div>
-              <div class="ring3"> </div>
-              <div class="ring4"> </div>
-            </div>
-
-            </div>
-          </div> */}
-          <img src={logo} className="App-logo" alt="logo" />
           {!this.state.token && (
-            <a
+            <div className="login">
+              <a
               className="btn btn--loginApp-link"
               href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
                 "%20"
@@ -116,18 +91,25 @@ class App extends Component {
             >
               connect to Spotify
             </a>
+            <div className="about"> 
+              <img src={logo} className="App-logo" alt="logo" />
+              <h1 className="description"> backtrack analyzes your most listened to songs over
+              the past month to generate your originality score - we also show you your most
+              listened to tracks</h1>
+            </div>
+            <h3 className="footer"> a project by Cierra</h3>
+            </div>
+
           )}
           {this.state.token && !this.state.no_data && (
-            <Player
-              item={this.state.item}
-              is_playing={this.state.is_playing}
-              progress_ms={this.state.progress_ms}
+            <Content
+              items={this.state.items}
             />
           )}
           
-          {this.state.no_data && (
+          {this.state.no_data && this.state.token && (
             <p>
-              You need to be playing a song on Spotify, for something to appear here.
+              no data!
             </p>
           )}
         </header>

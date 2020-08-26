@@ -1,0 +1,62 @@
+.main {
+    flex-direction: column;
+}
+
+.top-songs {
+    display:inline;
+    text-align: left;
+}
+
+.covers {
+    display:inline-block;
+    position: relative;
+    width: 50%;
+}
+
+.album-cover {
+    float: left;
+    width: 50%;
+    padding-top: 15%; 
+    position: relative;
+    z-index: 1;
+}
+
+.album-cover1 {
+    float: left;
+    width: 50%;
+    margin-left: -45%;
+    padding-top: 20%;
+    position: relative;
+    z-index: 2;
+}
+
+.album-cover2 {
+    float: left;
+    width: 50%;
+    margin-left: -45%;
+    padding-top: 25%; 
+    position: relative;
+    z-index: 2;
+}
+
+.album-cover3 {
+    float: left;
+    width: 50%;
+    margin-left: -45%;
+    padding-top: 30%; 
+    position: relative;
+    z-index: 2;
+}
+
+.album-cover4 {
+    float: left;
+    width: 50%;
+    margin-left: -45%;
+    padding-top: 35%; 
+    position: relative;
+    z-index: 2;
+}
+
+.songs {
+    display:inline-block;
+}
