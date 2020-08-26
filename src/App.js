@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import * as $ from "jquery";
 import { authEndpoint, clientId, redirectUri, scopes } from "./config";
 import hash from "./hash";
-import Player from "./Player";
-import logo from "./logo.svg";
-import "./App.css";
+import Player from "./assets/components/player/Player";
+import logo from "./assets/logo.png";
+import "./App.scss";
 
 class App extends Component {
   constructor() {
@@ -61,13 +61,15 @@ class App extends Component {
   getCurrentlyPlaying(token) {
     // Make a call using the token
     $.ajax({
-      url: "https://api.spotify.com/v1/me/player",
+      url: "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50&offset=0",
+      // url: "https://api.spotify.com/v1/me/player/recently-played?type=track&limit=20",
       type: "GET",
       beforeSend: xhr => {
         xhr.setRequestHeader("Authorization", "Bearer " + token);
       },
       success: data => {
         // Checks if the data is not empty
+        console.log(data);
         if(!data) {
           this.setState({
             no_data: true,
@@ -89,7 +91,21 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <h1 className="App-title"> backtrack </h1>
         <header className="App-header">
+          {/* <div class="music">
+            <div class="player"> 
+            </div>
+            <div class="disk"> 
+            <div class="rings">
+              <div class="ring1"> </div>
+              <div class="ring2"> </div>
+              <div class="ring3"> </div>
+              <div class="ring4"> </div>
+            </div>
+
+            </div>
+          </div> */}
           <img src={logo} className="App-logo" alt="logo" />
           {!this.state.token && (
             <a
@@ -98,7 +114,7 @@ class App extends Component {
                 "%20"
               )}&response_type=token&show_dialog=true`}
             >
-              Login to Spotify
+              connect to Spotify
             </a>
           )}
           {this.state.token && !this.state.no_data && (
@@ -108,6 +124,7 @@ class App extends Component {
               progress_ms={this.state.progress_ms}
             />
           )}
+          
           {this.state.no_data && (
             <p>
               You need to be playing a song on Spotify, for something to appear here.
