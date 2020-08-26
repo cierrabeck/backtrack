@@ -84,13 +84,13 @@ class App extends Component {
         <header className="App-header">
           {!this.state.token && (
             <div className="login">
-              <img
+              <a
               className="btn btn--loginApp-link"
               href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
                 "%20"
-              )}&response_type=token&show_dialog=true`}
-              src={connect}
-            />
+              )}&response_type=token&show_dialog=true`} >
+                <img className="connect" src={connect}/>
+              </a>
             <div className="about"> 
               <img src={logo} className="App-logo" alt="logo" />
               <img src={tracks} className="App-logo" alt="logo" />

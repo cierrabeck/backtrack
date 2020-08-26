@@ -73,7 +73,6 @@ html, body {
   padding: 0.7em 1.5em;
   box-shadow: inset 0 0 0 8px #E5EEF4;
   transition: all 0.4s ease-in-out;
-  height: 75px;
 }
 
 .btn:hover {
@@ -156,4 +155,9 @@ a {
   text-decoration-color: #5596BD;
   font-size: 14px;
   padding-left: 3px;
+}
+
+.connect {
+  height: 40px;
+  padding-top: 5px;
 }
