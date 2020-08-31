@@ -3,10 +3,14 @@
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 60vmin;
   pointer-events: none;
   position: relative;
   align-self: flex-start;
+
+  @media (max-width: 960px) {
+    align-self: center;
+  }
 }
 
 .b {
@@ -133,6 +137,16 @@ html, body {
   justify-content: center;
   height: 100%;
   flex-direction: row;
+
+  @media (max-width: 960px) {
+    flex-direction: column;
+    // margin-right: auto;
+    // margin-left: auto;
+    // position: relative;
+    // margin-bottom: 20px;
+    // width: 80%;
+    // padding-left: 120px;
+}
 }
 
 .main-container {

@@ -1,10 +1,8 @@
 {
   "name": "react-instafeed",
-  "description": "Realtime Spotify Player built with React.",
+  "description": "React Spotify Analysis.",
   "version": "0.1.0",
-  "author": "Joe Karlsson<joekarlsson1@gmail.com>",
-  "license": "MIT",
-  "private": true,
+  "author": "Cierra Beck<cierrabeck422@gmail.com>",
   "dependencies": {
     "jquery": "^3.4.1",
     "node-sass": "^4.14.1",
